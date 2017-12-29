@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jiangzr.com"></form>
@@ -87,7 +87,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/28/ubuntu16-04-Metasploit/" data-id="cjbrodmxp00011yok63cagml2" class="article-share-link">Teilen</a>
+      <a data-url="http://jiangzr.com/2017/12/28/ubuntu16-04-Metasploit/" data-id="cjbrodmxp00011yok63cagml2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -119,10 +119,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。</p>
-<p>最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理</p>
-<p>但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣</p>
-<p>于是又整理了下hexo的基本用法。其实官网上面应有尽有，但是不突出，于是自己把最重要的几个列了出来。（附官网链接<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></p>
+        <p>刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。<br>最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理。<br>但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣。<br>于是又整理了下hexo的基本用法。其实官网<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>应有尽有，不过为了快速搭建博客一般人应该不会对其中所有内容感兴趣，于是自己把最重要的几个列了出来。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Hexo需要Git和Node.js</p>
 <p>Git</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-core</span><br></pre></td></tr></table></figure>
@@ -149,13 +146,14 @@
 <p>所有文章都在source/_posts目录下，默认文章标题与文件名对应，如果文章只有最基本的内容，那么直接在相应文件中修改后部署就行了</p>
 <p>那么如何在文章中添加图片呢？这是一个常见的需求。你可以直接在source/images目录下存放图片然后在md中编辑![](/images/image.jpg)，当然Hexo也支持为每篇文章生成一一对应的资源文件夹，方法是</p>
 <p>_config.yml<br>post_asset_folder: true</p>
-<p>这样在每次新建一篇帖子时会自动生成与<title>对应文件夹，然后在相应md中编辑![](/images/title/image.jpg)即可引用图片，效果如下</title></p>
+<p>这样在每次新建一篇帖子时会自动生成与title名对应文件夹，然后在相应md中编辑![](/images/title/image.jpg)即可引用图片，效果如下</p>
 <p><img src="/images/Hello-Blog/Blog.png" alt=""></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>其实觉得默认主题挺好看的～</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/27/Hello-Blog/" data-id="cjbrodmxi00001yokkibnjpu1" class="article-share-link">Teilen</a>
+      <a data-url="http://jiangzr.com/2017/12/27/Hello-Blog/" data-id="cjbrodmxi00001yokkibnjpu1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -181,7 +179,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
@@ -191,7 +189,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
