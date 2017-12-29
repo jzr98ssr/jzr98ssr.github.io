@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jiangzr.com"></form>
@@ -88,15 +88,22 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add-apt-repository ppa:mrazavi/openvas</span><br><span class="line">apt update</span><br><span class="line">apt install sqlite3</span><br><span class="line">apt install openvas9</span><br></pre></td></tr></table></figure>
 <p>更新数据库，这部分时间较长，可能需要耐心等待<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install libopenvas9-dev</span><br><span class="line">greenbone-nvt-sync</span><br><span class="line">greenbone-scapdata-sync</span><br><span class="line">greenbone-certdata-sync</span><br></pre></td></tr></table></figure></p>
 <p>启动服务，书上和一些博客上指出默认端口是9392，自己尝试了很久，后来才发现是4000<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service openvas-scanner restart</span><br></pre></td></tr></table></figure></p>
-<p>访问localhost:4000可以看到令人欣喜的界面</p>
+<p>访问localhost:4000可以看到令人欣喜的界面，默认用户名和密码是admin，admin</p>
 <p><img src="/images/Openvas/login.png" alt=""></p>
 <h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>一开始按照《Metasploit渗透测试魔鬼训练营》，发现根本找不到其中的一些按钮。后来眯着眼睛仔细一个一个寻找才发现原来是按钮太小了（还以为是图标），布局也变了，还有自己可能不适应这种设计风格。不过万幸终于找到了。</p>
 <p>新建目标Target</p>
+<p>登录后在网页上部菜单中点击Configuration-Targets</p>
+<p><img src="/images/Openvas/target.png" alt=""></p>
+<p>点击左上角第二个星形按钮<img src="/images/Openvas/button.png" alt="">（或先鼠标放在其上，在某些页面会看到更多选项）</p>
+<p>即可设置自己要扫描的目标</p>
+<p><img src="/images/Openvas/newtarget.png" alt=""></p>
+<p>然后在上部菜单中点击Scans-Tasks，同样找到星形按钮即可新建一个扫描任务。在任务列表右侧Actions中点击Start按钮就可以开始扫描。扫描需要等待一段时间，最后点击结果可以看到Report</p>
+<p><img src="/images/Openvas/report.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjbrrec6w0000g7okdnadugm3" class="article-share-link">Share</a>
+      <a data-url="http://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjbrrec6w0000g7okdnadugm3" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -162,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/27/Hello-Blog/" data-id="cjbrph8rh0002vmokxhqxev5q" class="article-share-link">Share</a>
+      <a data-url="http://jiangzr.com/2017/12/27/Hello-Blog/" data-id="cjbrph8rh0002vmokxhqxev5q" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -188,7 +195,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
@@ -198,7 +205,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
