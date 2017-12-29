@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://jiangzr.com/images/Openvas/button.png">
 <meta property="og:image" content="http://jiangzr.com/images/Openvas/newtarget.png">
 <meta property="og:image" content="http://jiangzr.com/images/Openvas/report.png">
-<meta property="og:updated_time" content="2017-12-29T11:16:50.395Z">
+<meta property="og:updated_time" content="2017-12-29T11:23:54.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu16.04 Openvas安装与基本使用">
 <meta name="twitter:description" content="最近打了一个ctf线下网络攻防赛，虽然知道这次比赛主要是利用Web漏洞，但还是想趁机按照一般步骤试试渗透的一些内容。因为在某本关于Metasploit的书中推荐了Openvas，于是自己开始尝试这个工具。期间还是折腾了很久，发现书上和网上的有些内容也不能用了。 安装与同步漏洞数据库安装 1234add-apt-repository ppa:mrazavi/openvasapt updateapt">
@@ -102,8 +102,9 @@
 <p>新建目标Target</p>
 <p>登录后在网页上部菜单中点击Configuration-Targets</p>
 <p><img src="/images/Openvas/target.png" alt=""></p>
-<p>点击左上角第二个星形按钮<img src="/images/Openvas/button.png" alt="">（或先鼠标放在其上，在某些页面会看到更多选项）</p>
-<p>即可设置自己要扫描的目标</p>
+<p>点击左上角第二个星形按钮</p>
+<p><img src="/images/Openvas/button.png" alt=""></p>
+<p>（或先鼠标放在其上，在某些页面会看到更多选项）即可设置自己要扫描的目标</p>
 <p><img src="/images/Openvas/newtarget.png" alt=""></p>
 <p>然后在上部菜单中点击Scans-Tasks，同样找到星形按钮即可新建一个扫描任务。在任务列表右侧Actions中点击Start按钮就可以开始扫描。扫描需要等待一段时间，最后点击结果可以看到Report</p>
 <p><img src="/images/Openvas/report.png" alt=""></p>
