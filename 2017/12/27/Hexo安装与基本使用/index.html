@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo安装与基本使用 | Bairuo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理。但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣。于是又整理了下hexo的基本用法。其实官网Hexo应有尽有，不过为了快速搭建博客一般人应该不会对其中所有内容感兴趣，于是自己把最重要的几个列了出来。 安装Hexo需要Git和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo安装与基本使用">
+<meta property="og:url" content="http://jiangzr.com/2017/12/27/Hexo安装与基本使用/index.html">
+<meta property="og:site_name" content="Bairuo&#39;s Blog">
+<meta property="og:description" content="刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理。但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣。于是又整理了下hexo的基本用法。其实官网Hexo应有尽有，不过为了快速搭建博客一般人应该不会对其中所有内容感兴趣，于是自己把最重要的几个列了出来。 安装Hexo需要Git和">
+<meta property="og:image" content="http://jiangzr.com/images/Hello-Blog/Blog.png">
+<meta property="og:updated_time" content="2018-01-22T06:22:15.957Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo安装与基本使用">
+<meta name="twitter:description" content="刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理。但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣。于是又整理了下hexo的基本用法。其实官网Hexo应有尽有，不过为了快速搭建博客一般人应该不会对其中所有内容感兴趣，于是自己把最重要的几个列了出来。 安装Hexo需要Git和">
+<meta name="twitter:image" content="http://jiangzr.com/images/Hello-Blog/Blog.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Bairuo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bairuo&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jiangzr.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Hexo安装与基本使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/27/Hexo安装与基本使用/" class="article-date">
+  <time datetime="2017-12-27T12:00:00.000Z" itemprop="datePublished">2017-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo安装与基本使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刚大一的时候用Hexo + github搭建了博客，但搭建后很长时间没咋管过。最近觉得还是不应该让博客长期坟头长草，于是决定来整理整理。但“工欲善其事，必先利其器”，如果每次更新博文还得先回忆下怎么操作工具，必然没有什么兴趣。于是又整理了下hexo的基本用法。其实官网<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>应有尽有，不过为了快速搭建博客一般人应该不会对其中所有内容感兴趣，于是自己把最重要的几个列了出来。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Hexo需要Git和Node.js</p>
+<p>Git</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-core</span><br></pre></td></tr></table></figure>
+<p>Node.js</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash</span><br><span class="line">nvm install stable</span><br></pre></td></tr></table></figure>
+<p>Hexo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<h3 id="本地预览与部署到Github"><a href="#本地预览与部署到Github" class="headerlink" title="本地预览与部署到Github"></a>本地预览与部署到Github</h3><p>初始化一个空博客的命令如下，在初始化后可以启动服务先在本地进行预览</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>默认端口是4000，但如果4000端口已经用来干其它的事了，可以这样更改端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s -p 5000</span><br></pre></td></tr></table></figure>
+<p>s就是server的缩写，运行命令之后会看到提示，然后进入<a href="http://localhost:5000/就可以本地预览自己的博客了" target="_blank" rel="noopener">http://localhost:5000/就可以本地预览自己的博客了</a></p>
+<p>那么现在如何快速部署到Github呢？首先需要安装部署工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>所有站点设置都在根目录_config.yml这个文件里面，然后将其中deploy项配置成如下内容，其中xxx是自己的Github昵称</p>
+<p>_config.yml</p>
+<p>deploy:<br>  type: git<br>  repository: git@github.com:xxx/xxx.github.io.git<br>  branch: master</p>
+<p>Github上的设置和一般仓库一样就不说了，注意仓库名就行，然后输入以下命令，如果有冲突会自动Force解决，然后进入xxx.github.io即可看到自己的博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p>-g是generate的意思，d是deploy的意思，每次部署前需要先生成，也可以使用以下命令，二者没有区别</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<h3 id="生成与编辑博客文章"><a href="#生成与编辑博客文章" class="headerlink" title="生成与编辑博客文章"></a>生成与编辑博客文章</h3><p>现在已经能够方便地将本地站点部署到Github了，那么如何快速更新博客呢？</p>
+<p>首先需要新创建一篇博文</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>所有文章都在source/_posts目录下，默认文章标题与文件名对应，如果文章只有最基本的内容，那么直接在相应文件中修改后部署就行了</p>
+<p>那么如何在文章中添加图片呢？这是一个常见的需求。你可以直接在source/images目录下存放图片然后在md中编辑![](/images/image.jpg)，当然Hexo也支持为每篇文章生成一一对应的资源文件夹，方法是</p>
+<p>_config.yml<br>post_asset_folder: true</p>
+<p>引用图片效果如下</p>
+<p><img src="/images/Hello-Blog/Blog.png" alt=""></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>其实觉得默认主题挺好看的～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jiangzr.com/2017/12/27/Hexo安装与基本使用/" data-id="cjcpyfuxe0000muoketequ7qh" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          ubuntu16.04 Openvas安装与基本使用
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/">费雷德组织行为学中英摘录第1章（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/29/ubuntu16-04-Openvas安装与基本使用/">ubuntu16.04 Openvas安装与基本使用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/27/Hexo安装与基本使用/">Hexo安装与基本使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Bairuo&#39;s Blog<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
