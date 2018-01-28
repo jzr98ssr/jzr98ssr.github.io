@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>GLSL绘制圆角矩形 | Bairuo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="需要通过内建变量gl_FragCoord获取当前片元的坐标，gl_FragCoord的xy是窗口空间坐标，如800 * 600的窗口，那么x,y的范围就分别是0-800和0-600，以左下角为原点。 然后通过一些数学计算就行了，我的思路是先转换为以窗口中心为原点的归一化坐标，然后转换为相对矩形中心的坐标，全部取绝对值到第一象限后进行计算比较。 123456789101112131415161718">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GLSL绘制圆角矩形">
+<meta property="og:url" content="http://jiangzr.com/2018/01/28/GLSL绘制圆角矩形/index.html">
+<meta property="og:site_name" content="Bairuo&#39;s Blog">
+<meta property="og:description" content="需要通过内建变量gl_FragCoord获取当前片元的坐标，gl_FragCoord的xy是窗口空间坐标，如800 * 600的窗口，那么x,y的范围就分别是0-800和0-600，以左下角为原点。 然后通过一些数学计算就行了，我的思路是先转换为以窗口中心为原点的归一化坐标，然后转换为相对矩形中心的坐标，全部取绝对值到第一象限后进行计算比较。 123456789101112131415161718">
+<meta property="og:image" content="http://jiangzr.com/images/RoundedRectangle.png">
+<meta property="og:updated_time" content="2018-01-28T01:25:33.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GLSL绘制圆角矩形">
+<meta name="twitter:description" content="需要通过内建变量gl_FragCoord获取当前片元的坐标，gl_FragCoord的xy是窗口空间坐标，如800 * 600的窗口，那么x,y的范围就分别是0-800和0-600，以左下角为原点。 然后通过一些数学计算就行了，我的思路是先转换为以窗口中心为原点的归一化坐标，然后转换为相对矩形中心的坐标，全部取绝对值到第一象限后进行计算比较。 123456789101112131415161718">
+<meta name="twitter:image" content="http://jiangzr.com/images/RoundedRectangle.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Bairuo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bairuo&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jiangzr.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GLSL绘制圆角矩形" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/28/GLSL绘制圆角矩形/" class="article-date">
+  <time datetime="2018-01-28T01:11:56.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GLSL绘制圆角矩形
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>需要通过内建变量gl_FragCoord获取当前片元的坐标，gl_FragCoord的xy是窗口空间坐标，如800 * 600的窗口，那么x,y的范围就分别是0-800和0-600，以左下角为原点。</p>
+<p>然后通过一些数学计算就行了，我的思路是先转换为以窗口中心为原点的归一化坐标，然后转换为相对矩形中心的坐标，全部取绝对值到第一象限后进行计算比较。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line"></span><br><span class="line">in vec4 vcolor;</span><br><span class="line"></span><br><span class="line">out vec4 color;</span><br><span class="line"></span><br><span class="line">uniform vec2 recPos;</span><br><span class="line"></span><br><span class="line">uniform float radius;</span><br><span class="line">uniform float recWidth;</span><br><span class="line">uniform float recHeight;</span><br><span class="line"></span><br><span class="line">uniform int windowWidth;</span><br><span class="line">uniform int windowHeight;</span><br><span class="line">uniform vec4 roundColor;</span><br><span class="line"></span><br><span class="line">float GetObjectx(float windowx)</span><br><span class="line">&#123;</span><br><span class="line">    return (windowx - windowWidth / 2) / (windowWidth / 2) - recPos.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float GetObjecty(float windowy)</span><br><span class="line">&#123;</span><br><span class="line">    return (windowy - windowHeight / 2) / (windowHeight / 2) - recPos.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    float x = abs(GetObjectx(gl_FragCoord.x)), y = abs(GetObjecty(gl_FragCoord.y));</span><br><span class="line">    float x0 = recWidth / 2 - radius, y0 = recHeight / 2 - radius;</span><br><span class="line">    float l;</span><br><span class="line"></span><br><span class="line">    if(x &gt; x0 &amp;&amp; y &gt; y0)</span><br><span class="line">    &#123;</span><br><span class="line">        l = length(vec2(x - x0, y - y0));</span><br><span class="line">        if(l &gt; radius)</span><br><span class="line">            color = roundColor;</span><br><span class="line">        else</span><br><span class="line">            color = vcolor;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">        color = vcolor;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果图如下</p>
+<p><img src="/images/RoundedRectangle.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jiangzr.com/2018/01/28/GLSL绘制圆角矩形/" data-id="cjcy3tc1d0001mgokv9da0w6o" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">费雷德组织行为学中英摘录第1章（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/28/GLSL绘制圆角矩形/">GLSL绘制圆角矩形</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/">费雷德组织行为学中英摘录第1章（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/29/ubuntu16-04-Openvas安装与基本使用/">ubuntu16.04 Openvas安装与基本使用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/27/Hexo安装与基本使用/">Hexo安装与基本使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Bairuo&#39;s Blog<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -61,6 +61,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GLSL绘制圆角矩形" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/28/GLSL绘制圆角矩形/" class="article-date">
+  <time datetime="2018-01-28T01:11:56.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/28/GLSL绘制圆角矩形/">GLSL绘制圆角矩形</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>需要通过内建变量gl_FragCoord获取当前片元的坐标，gl_FragCoord的xy是窗口空间坐标，如800 * 600的窗口，那么x,y的范围就分别是0-800和0-600，以左下角为原点。</p>
+<p>然后通过一些数学计算就行了，我的思路是先转换为以窗口中心为原点的归一化坐标，然后转换为相对矩形中心的坐标，全部取绝对值到第一象限后进行计算比较。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line"></span><br><span class="line">in vec4 vcolor;</span><br><span class="line"></span><br><span class="line">out vec4 color;</span><br><span class="line"></span><br><span class="line">uniform vec2 recPos;</span><br><span class="line"></span><br><span class="line">uniform float radius;</span><br><span class="line">uniform float recWidth;</span><br><span class="line">uniform float recHeight;</span><br><span class="line"></span><br><span class="line">uniform int windowWidth;</span><br><span class="line">uniform int windowHeight;</span><br><span class="line">uniform vec4 roundColor;</span><br><span class="line"></span><br><span class="line">float GetObjectx(float windowx)</span><br><span class="line">&#123;</span><br><span class="line">    return (windowx - windowWidth / 2) / (windowWidth / 2) - recPos.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float GetObjecty(float windowy)</span><br><span class="line">&#123;</span><br><span class="line">    return (windowy - windowHeight / 2) / (windowHeight / 2) - recPos.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    float x = abs(GetObjectx(gl_FragCoord.x)), y = abs(GetObjecty(gl_FragCoord.y));</span><br><span class="line">    float x0 = recWidth / 2 - radius, y0 = recHeight / 2 - radius;</span><br><span class="line">    float l;</span><br><span class="line"></span><br><span class="line">    if(x &gt; x0 &amp;&amp; y &gt; y0)</span><br><span class="line">    &#123;</span><br><span class="line">        l = length(vec2(x - x0, y - y0));</span><br><span class="line">        if(l &gt; radius)</span><br><span class="line">            color = roundColor;</span><br><span class="line">        else</span><br><span class="line">            color = vcolor;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">        color = vcolor;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果图如下</p>
+<p><img src="/images/RoundedRectangle.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jiangzr.com/2018/01/28/GLSL绘制圆角矩形/" data-id="cjcy3tc1d0001mgokv9da0w6o" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-费雷德组织行为学中英摘录第1章（一）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" class="article-date">
@@ -123,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" data-id="cjcpyfuxk0001muoklb21fg0c" class="article-share-link">Teilen</a>
+      <a data-url="http://jiangzr.com/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" data-id="cjcy3tc1t0002mgokuoxvu3wu" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -176,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjcpyfuya0002muokbn293m85" class="article-share-link">Teilen</a>
+      <a data-url="http://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjcy3tc2d0003mgokm63732d7" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -242,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jiangzr.com/2017/12/27/Hexo安装与基本使用/" data-id="cjcpyfuxe0000muoketequ7qh" class="article-share-link">Teilen</a>
+      <a data-url="http://jiangzr.com/2017/12/27/Hexo安装与基本使用/" data-id="cjcy3tc170000mgok3sxk02fz" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -281,6 +322,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/28/GLSL绘制圆角矩形/">GLSL绘制圆角矩形</a>
+          </li>
         
           <li>
             <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/">费雷德组织行为学中英摘录第1章（一）</a>
