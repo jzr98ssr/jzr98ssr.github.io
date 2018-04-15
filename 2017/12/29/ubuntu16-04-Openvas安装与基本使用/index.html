@@ -10,21 +10,21 @@
   <meta name="description" content="最近打了一个ctf线下网络攻防赛，虽然知道这次比赛主要是利用Web漏洞，但还是想趁机按照一般步骤试试渗透的一些内容。因为在某本关于Metasploit的书中推荐了Openvas，于是自己开始尝试这个工具。期间还是折腾了很久，发现书上和网上的有些内容也不能用了。 安装与同步漏洞数据库安装 1234add-apt-repository ppa:mrazavi/openvasapt updateapt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu16.04 Openvas安装与基本使用">
-<meta property="og:url" content="https://bairuo.github.io/archives/2017/12/29/ubuntu16-04-Openvas安装与基本使用/index.html">
+<meta property="og:url" content="https://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/index.html">
 <meta property="og:site_name" content="Bairuo&#39;s Blog">
 <meta property="og:description" content="最近打了一个ctf线下网络攻防赛，虽然知道这次比赛主要是利用Web漏洞，但还是想趁机按照一般步骤试试渗透的一些内容。因为在某本关于Metasploit的书中推荐了Openvas，于是自己开始尝试这个工具。期间还是折腾了很久，发现书上和网上的有些内容也不能用了。 安装与同步漏洞数据库安装 1234add-apt-repository ppa:mrazavi/openvasapt updateapt">
-<meta property="og:image" content="https://bairuo.github.io/images/Openvas/login.png">
-<meta property="og:image" content="https://bairuo.github.io/images/Openvas/target.png">
-<meta property="og:image" content="https://bairuo.github.io/images/Openvas/button.png">
-<meta property="og:image" content="https://bairuo.github.io/images/Openvas/newtarget.png">
-<meta property="og:image" content="https://bairuo.github.io/images/Openvas/report.png">
+<meta property="og:image" content="https://jiangzr.com/images/Openvas/login.png">
+<meta property="og:image" content="https://jiangzr.com/images/Openvas/target.png">
+<meta property="og:image" content="https://jiangzr.com/images/Openvas/button.png">
+<meta property="og:image" content="https://jiangzr.com/images/Openvas/newtarget.png">
+<meta property="og:image" content="https://jiangzr.com/images/Openvas/report.png">
 <meta property="og:updated_time" content="2017-12-29T11:23:54.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu16.04 Openvas安装与基本使用">
 <meta name="twitter:description" content="最近打了一个ctf线下网络攻防赛，虽然知道这次比赛主要是利用Web漏洞，但还是想趁机按照一般步骤试试渗透的一些内容。因为在某本关于Metasploit的书中推荐了Openvas，于是自己开始尝试这个工具。期间还是折腾了很久，发现书上和网上的有些内容也不能用了。 安装与同步漏洞数据库安装 1234add-apt-repository ppa:mrazavi/openvasapt updateapt">
-<meta name="twitter:image" content="https://bairuo.github.io/images/Openvas/login.png">
+<meta name="twitter:image" content="https://jiangzr.com/images/Openvas/login.png">
   
-    <link rel="alternate" href="/archives/atom.xml" title="Bairuo&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Bairuo&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -32,7 +32,7 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/archives/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -43,7 +43,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/archives/" id="logo">Bairuo&#39;s Blog</a>
+        <a href="/" id="logo">Bairuo&#39;s Blog</a>
       </h1>
       
     </div>
@@ -51,19 +51,19 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/archives/">Home</a>
+          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/archives/archives">Archives</a>
+          <a class="main-nav-link" href="/archives">Archives</a>
         
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/archives/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bairuo.github.io/archives"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jiangzr.com"></form>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
       <div class="outer">
         <section id="main"><article id="post-ubuntu16-04-Openvas安装与基本使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/archives/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" class="article-date">
+    <a href="/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" class="article-date">
   <time datetime="2017-12-29T09:17:07.000Z" itemprop="datePublished">2017-12-29</time>
 </a>
     
@@ -112,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://bairuo.github.io/archives/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjf0p59ty0002cuokc5eh8qtp" class="article-share-link">Share</a>
+      <a data-url="https://jiangzr.com/2017/12/29/ubuntu16-04-Openvas安装与基本使用/" data-id="cjf0p59ty0002cuokc5eh8qtp" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -121,8 +121,8 @@
     
 <nav id="article-nav">
   
-    <a href="/archives/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+    <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
           费雷德组织行为学中英摘录第1章（一）
@@ -131,8 +131,8 @@
     </a>
   
   
-    <a href="/archives/2017/12/27/Hexo安装与基本使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+    <a href="/2017/12/27/Hexo安装与基本使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">Hexo安装与基本使用</div>
     </a>
   
@@ -155,9 +155,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/archives/2017/12/">December 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
   </div>
 
@@ -165,28 +165,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/archives/2018/04/15/如何使团队更有效-摘录/">如何使团队更有效-摘录</a>
+            <a href="/2018/04/15/如何使团队更有效-摘录/">如何使团队更有效-摘录</a>
           </li>
         
           <li>
-            <a href="/archives/2018/04/07/群体偏见-摘录/">群体偏见-摘录</a>
+            <a href="/2018/04/07/群体偏见-摘录/">群体偏见-摘录</a>
           </li>
         
           <li>
-            <a href="/archives/2018/03/21/个人成就动机/">个人成就动机</a>
+            <a href="/2018/03/21/个人成就动机/">个人成就动机</a>
           </li>
         
           <li>
-            <a href="/archives/2018/01/28/GLSL绘制圆角矩形/">GLSL绘制圆角矩形</a>
+            <a href="/2018/01/28/GLSL绘制圆角矩形/">GLSL绘制圆角矩形</a>
           </li>
         
           <li>
-            <a href="/archives/2018/01/22/费雷德组织行为学中英摘录第1章（一）/">费雷德组织行为学中英摘录第1章（一）</a>
+            <a href="/2018/01/22/费雷德组织行为学中英摘录第1章（一）/">费雷德组织行为学中英摘录第1章（一）</a>
           </li>
         
       </ul>
@@ -209,9 +209,9 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/archives/" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/archives/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
     
@@ -219,11 +219,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/archives/fancybox/jquery.fancybox.css">
-  <script src="/archives/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/archives/js/script.js"></script>
+<script src="/js/script.js"></script>
 
 
 
