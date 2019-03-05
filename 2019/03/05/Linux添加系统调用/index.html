@@ -10,10 +10,10 @@
   <meta name="description" content="为什么内核代码中没有sys_x函数 我的系统调用能调用，但为什么参数传不进去  笔者一开始没有找到问题原因，自己看内核代码和反复编译了很多遍才解决  问题一:为什么我的内核代码中没有sys_x函数  笔者按照任务说明在内核代码中使用sysx函数，但编译时被提示sys_x不存在，是否应该是ksys。于是按照提示修改为ksysx，但发现编译后自己的系统调用不能正常完成功能，那么是因为没按要求使用sy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 4.x 64位 如何添加系统调用">
-<meta property="og:url" content="https://jiangzr.com/2018/03/05/Linux内核/index.html">
+<meta property="og:url" content="https://jiangzr.com/2019/03/05/Linux添加系统调用/index.html">
 <meta property="og:site_name" content="Bairuo&#39;s Blog">
 <meta property="og:description" content="为什么内核代码中没有sys_x函数 我的系统调用能调用，但为什么参数传不进去  笔者一开始没有找到问题原因，自己看内核代码和反复编译了很多遍才解决  问题一:为什么我的内核代码中没有sys_x函数  笔者按照任务说明在内核代码中使用sysx函数，但编译时被提示sys_x不存在，是否应该是ksys。于是按照提示修改为ksysx，但发现编译后自己的系统调用不能正常完成功能，那么是因为没按要求使用sy">
-<meta property="og:updated_time" content="2019-03-05T07:29:27.691Z">
+<meta property="og:updated_time" content="2019-03-05T07:32:50.064Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 4.x 64位 如何添加系统调用">
 <meta name="twitter:description" content="为什么内核代码中没有sys_x函数 我的系统调用能调用，但为什么参数传不进去  笔者一开始没有找到问题原因，自己看内核代码和反复编译了很多遍才解决  问题一:为什么我的内核代码中没有sys_x函数  笔者按照任务说明在内核代码中使用sysx函数，但编译时被提示sys_x不存在，是否应该是ksys。于是按照提示修改为ksysx，但发现编译后自己的系统调用不能正常完成功能，那么是因为没按要求使用sy">
@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jiangzr.com"></form>
@@ -63,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux内核" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Linux添加系统调用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/05/Linux内核/" class="article-date">
-  <time datetime="2018-03-05T06:49:00.000Z" itemprop="datePublished">2018-03-05</time>
+    <a href="/2019/03/05/Linux添加系统调用/" class="article-date">
+  <time datetime="2019-03-05T06:49:00.000Z" itemprop="datePublished">2019-03-05</time>
 </a>
     
   </div>
@@ -116,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jiangzr.com/2018/03/05/Linux内核/" data-id="cjsvge5a70000dtokhfsmvnff" class="article-share-link">Share</a>
+      <a data-url="https://jiangzr.com/2019/03/05/Linux添加系统调用/" data-id="cjsvgjq2g0000nyokewl9r7md" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -125,19 +125,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/03/21/个人成就动机/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          个人成就动机
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/28/GLSL绘制圆角矩形/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">GLSL绘制圆角矩形</div>
+    <a href="/2018/04/15/如何使团队更有效-摘录/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">如何使团队更有效-摘录</div>
     </a>
   
 </nav>
@@ -159,9 +150,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
   </div>
 
@@ -169,9 +160,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/03/05/Linux添加系统调用/">Linux 4.x 64位 如何添加系统调用</a>
+          </li>
         
           <li>
             <a href="/2018/04/15/如何使团队更有效-摘录/">如何使团队更有效-摘录</a>
@@ -183,10 +178,6 @@
         
           <li>
             <a href="/2018/03/21/个人成就动机/">个人成就动机</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/05/Linux内核/">Linux 4.x 64位 如何添加系统调用</a>
           </li>
         
           <li>
