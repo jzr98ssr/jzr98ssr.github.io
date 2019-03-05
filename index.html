@@ -61,43 +61,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Blog调整" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/27/Blog调整/" class="article-date">
-  <time datetime="2018-11-27T05:49:00.000Z" itemprop="datePublished">2018-11-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/27/Blog调整/">About Blog</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>博客不常整理～，关注领域：实时渲染、游戏开发（AI、物理、网络）、心理学、管理学</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jiangzr.com/2018/11/27/Blog调整/" data-id="cjm4hq1si00000aokigs1fwd5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-如何使团队更有效-摘录" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/15/如何使团队更有效-摘录/" class="article-date">
@@ -317,6 +280,69 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://jiangzr.com/2018/03/21/个人成就动机/" data-id="cjf0p59uc0003cuokxt0hz86m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Linux内核" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/05/Linux内核/" class="article-date">
+  <time datetime="2018-03-05T06:49:00.000Z" itemprop="datePublished">2018-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/05/Linux内核/">Linux 4.x 64位 如何添加系统调用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>为什么内核代码中没有sys_x函数</li>
+<li>我的系统调用能调用，但为什么参数传不进去</li>
+</ul>
+<p>笔者一开始没有找到问题原因，自己看内核代码和反复编译了很多遍才解决</p>
+<ul>
+<li>问题一:为什么我的内核代码中没有sys_x函数</li>
+</ul>
+<p>笔者按照任务说明在内核代码中使用sysx函数，但编译时被提示sys_x不存在，是否应该是ksys。于是按照提示修改为ksys<em>x，但发现编译后自己的系统调用不能正常完成功能，那么是因为没按要求使用sys</em>*的原因吗？</p>
+<p>不是，可以放心使用ksys_x。在include/linux/syscalls.h中可看到这样的注释</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Kernel code should not call syscalls (i.e., sys_xyzyyz()) directly.</span><br><span class="line"> * Instead, use one of the <span class="built_in">functions</span> <span class="built_in">which</span> work equivalently, such as</span><br><span class="line"> * the ksys_xyzyyz() <span class="built_in">functions</span> prototyped below.</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>如果还不放心，可以进一步看下sysopen和ksysopen的声明到底有什么区别</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">asmlinkage long sys_open(const char __user *filename,</span><br><span class="line">				int flags, umode_t mode);</span><br><span class="line"></span><br><span class="line">static inline long ksys_open(const char __user *filename, int flags,</span><br><span class="line">			     umode_t mode)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (force_o_largefile())</span><br><span class="line">		flags |= O_LARGEFILE;</span><br><span class="line">	<span class="built_in">return</span> do_sys_open(AT_FDCWD, filename, flags, mode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>诶好像有点不一样？进入kernel/open.c可以看到sysopen的声明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE3(open, const char __user *, filename, int, flags, umode_t, mode)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (force_o_largefile())</span><br><span class="line">		flags |= O_LARGEFILE;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">return</span> do_sys_open(AT_FDCWD, filename, flags, mode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上是一样的，所以不必担心是否会因为使用了ksys而导致任务失败</p>
+<ul>
+<li>问题二:我的系统调用能调用，但为什么参数传不进去</li>
+</ul>
+<p>细心的同学可能会发现内核代码中好像找不到像ksys_open这样的函数声明，但我们又能使用它，为什么呢？</p>
+<p>同样是include/linux/syscalls.h可以看到这样的宏定义</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)</span></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)</span></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)</span></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE4(name, ...) SYSCALL_DEFINEx(4, _##name, __VA_ARGS__)</span></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE5(name, ...) SYSCALL_DEFINEx(5, _##name, __VA_ARGS__)</span></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE6(name, ...) SYSCALL_DEFINEx(6, _##name, __VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINE_MAXARGS	6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define SYSCALL_DEFINEx(x, sname, ...)				\</span></span><br><span class="line">	SYSCALL_METADATA(sname, x, __VA_ARGS__)			\</span><br><span class="line">	__SYSCALL_DEFINEx(x, sname, __VA_ARGS__)</span><br><span class="line"></span><br><span class="line"><span class="comment">#define __PROTECT(...) asmlinkage_protect(__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * The asmlinkage stub is aliased to a <span class="keyword">function</span> named __se_sys_*() <span class="built_in">which</span></span><br><span class="line"> * sign-extends 32-bit ints to longs whenever needed. The actual work is</span><br><span class="line"> * <span class="keyword">done</span> within __do_sys_*().</span><br><span class="line"> */</span><br><span class="line"><span class="comment">#ifndef __SYSCALL_DEFINEx</span></span><br><span class="line"><span class="comment">#define __SYSCALL_DEFINEx(x, name, ...)					\</span></span><br><span class="line">	__diag_push();							\</span><br><span class="line">	__diag_ignore(GCC, 8, <span class="string">"-Wattribute-alias"</span>,			\</span><br><span class="line">		      <span class="string">"Type aliasing is used to sanitize syscall arguments"</span>);\</span><br><span class="line">	asmlinkage long sys<span class="comment">##name(__MAP(x,__SC_DECL,__VA_ARGS__))	\</span></span><br><span class="line">		__attribute__((<span class="built_in">alias</span>(__stringify(__se_sys<span class="comment">##name))));	\</span></span><br><span class="line">	ALLOW_ERROR_INJECTION(sys<span class="comment">##name, ERRNO);			\</span></span><br><span class="line">	static inline long __do_sys<span class="comment">##name(__MAP(x,__SC_DECL,__VA_ARGS__));\</span></span><br><span class="line">	asmlinkage long __se_sys<span class="comment">##name(__MAP(x,__SC_LONG,__VA_ARGS__));	\</span></span><br><span class="line">	asmlinkage long __se_sys<span class="comment">##name(__MAP(x,__SC_LONG,__VA_ARGS__))	\</span></span><br><span class="line">	&#123;								\</span><br><span class="line">		long ret = __do_sys<span class="comment">##name(__MAP(x,__SC_CAST,__VA_ARGS__));\</span></span><br><span class="line">		__MAP(x,__SC_TEST,__VA_ARGS__);				\</span><br><span class="line">		__PROTECT(x, ret,__MAP(x,__SC_ARGS,__VA_ARGS__));	\</span><br><span class="line">		<span class="built_in">return</span> ret;						\</span><br><span class="line">	&#125;								\</span><br><span class="line">	__diag_pop();							\</span><br><span class="line">	static inline long __do_sys<span class="comment">##name(__MAP(x,__SC_DECL,__VA_ARGS__))</span></span><br><span class="line"><span class="comment">#endif /* __SYSCALL_DEFINEx */</span></span><br></pre></td></tr></table></figure>
+<p>在问题一中也说了进入kerner/open.c可以看到这样的声明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE3(open, const char __user *, filename, int, flags, umode_t, mode)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (force_o_largefile())</span><br><span class="line">		flags |= O_LARGEFILE;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">return</span> do_sys_open(AT_FDCWD, filename, flags, mode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SYSCALL_DEFINEx实际上是一个宏，把它展开可以得到sys__name的声明，但是为什么要这样做呢？我依然按照32位系统中的直接使用sysname的声明可以吗？</p>
+<p>使用复杂的宏实际上是由于关于64位系统返回值的某个安全问题，使用SYSCALL_DEFINEx将返回值统一转化为long，具体可参照<a href="https://blog.csdn.net/hxmhyp/article/details/22699669" target="_blank" rel="noopener">https://blog.csdn.net/hxmhyp/article/details/22699669</a></p>
+<p>至于可不可以在自己添加系统调用时依然使用sys_name的方法，笔者的测试结果是，最后可以调用但是如果添加的函数带参，那么传入的参数永远是未初始化的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jiangzr.com/2018/03/05/Linux内核/" data-id="cjsvge5a70000dtokhfsmvnff" class="article-share-link">Share</a>
       
       
     </footer>
@@ -576,7 +602,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
     </div>
   </div>
 
@@ -589,10 +615,6 @@
       <ul>
         
           <li>
-            <a href="/2018/11/27/Blog调整/">About Blog</a>
-          </li>
-        
-          <li>
             <a href="/2018/04/15/如何使团队更有效-摘录/">如何使团队更有效-摘录</a>
           </li>
         
@@ -602,6 +624,10 @@
         
           <li>
             <a href="/2018/03/21/个人成就动机/">个人成就动机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/05/Linux内核/">Linux 4.x 64位 如何添加系统调用</a>
           </li>
         
           <li>
@@ -620,7 +646,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Bairuo&#39;s Blog<br>
+      &copy; 2019 Bairuo&#39;s Blog<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
